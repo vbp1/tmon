@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+
+  chbot-nginx:
+    build: ./nginx
+    restart: always
+    ports:
+      - 8443:8443
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./nginx/static:/usr/share/nginx/html/static
+      - ./nginx/cert:/etc/ssl:ro
+    networks:  # <-- here
+      - chbot_network
+
+networks:  # <-- and here
+    chbot_network:
+        driver: bridge
